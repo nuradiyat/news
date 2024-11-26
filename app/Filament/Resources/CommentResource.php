@@ -23,7 +23,15 @@ class CommentResource extends Resource
     {
         return $form
             ->schema([
-                //
+                Forms\Components\Select::make('article_id')
+                ->relationship('article', 'name') // Relasi ke Category
+                ->required(),
+                Forms\Components\TextInput::make('name'),
+                Forms\Components\Textarea::make('content')
+                ->required(),
+                Forms\Components\DatePicker::make('published_at')
+                ->required()
+                ->maxDate(now()),
             ]);
     }
 
@@ -31,12 +39,16 @@ class CommentResource extends Resource
     {
         return $table
             ->columns([
-                //
+                Tables\Columns\TextColumn::make('article.user'),
+                Tables\Columns\TextColumn::make('name'),
+                // Tables\Columns\TextColumn::make('content'),
+                Tables\Columns\TextColumn::make('published_at'),
             ])
             ->filters([
                 //
             ])
             ->actions([
+                Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
