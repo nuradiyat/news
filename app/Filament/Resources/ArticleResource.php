@@ -6,9 +6,11 @@ use App\Filament\Resources\ArticleResource\Pages;
 use App\Filament\Resources\ArticleResource\RelationManagers;
 use App\Models\Article;
 use Filament\Forms;
+use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -30,11 +32,12 @@ class ArticleResource extends Resource
                 Forms\Components\Select::make('categori_id')
                 ->relationship('categori', 'name') // Relasi ke Category
                 ->required(),
-                Forms\Components\TextInput::make('user')
+                Forms\Components\Select::make('user_id')
+                ->relationship('user', 'name') // Relasi ke user
                 ->required(),
-                // Forms\Components\Select::make('user_id')
-                // ->relationship('user', 'name') // Relasi ke user
-                // ->required(),
+                FileUpload::make('image')
+                ->image()
+                ->required(),
                 Forms\Components\DatePicker::make('published_at')
                 ->required()
                 ->maxDate(now()),
@@ -48,7 +51,9 @@ class ArticleResource extends Resource
                 Tables\Columns\TextColumn::make('name'),
                 // Tables\Columns\TextColumn::make('content'),
                 Tables\Columns\TextColumn::make('categori.name'),
-                Tables\Columns\TextColumn::make('user'),
+                Tables\Columns\TextColumn::make('user.name'),
+                ImageColumn::make('image')
+                ->width(100),
                 Tables\Columns\TextColumn::make('published_at'),
             ])
             ->filters([

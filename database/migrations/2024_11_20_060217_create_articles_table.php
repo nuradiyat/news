@@ -14,9 +14,10 @@ return new class extends Migration
         Schema::create('articles', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->text('content');
+            $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
             $table->foreignId('categori_id')->constrained('categoris')->cascadeOnDelete();
-            $table->string('user');
+            $table->text('content');
+            $table->string('image')->nullable();
             $table->date('published_at');
             $table->timestamps();
         });

@@ -39,7 +39,7 @@ class CommentResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('article.user'),
+                Tables\Columns\TextColumn::make('article.name'),
                 Tables\Columns\TextColumn::make('name'),
                 // Tables\Columns\TextColumn::make('content'),
                 Tables\Columns\TextColumn::make('published_at'),

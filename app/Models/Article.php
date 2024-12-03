@@ -15,7 +15,8 @@ class Article extends Model
         'name',
         'content',
         'categori_id',
-        'user',
+        'user_id',
+        'image',
         'published_at',
     ];
 
